@@ -1,0 +1,8 @@
+POST http://localhost:8081/agents
+Content-Type: application/json
+
+ {
+    "display_name": "Omen",
+    "role": "Controller",
+    "nationality": "Radiant"
+  }

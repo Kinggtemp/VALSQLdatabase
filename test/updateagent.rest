@@ -1,0 +1,2 @@
+PUT http://localhost:8081/agents
+Content-Type: application/json
