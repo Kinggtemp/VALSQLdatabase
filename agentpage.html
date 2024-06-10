@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valorant Agents</title>
+    <link rel="stylesheet" href="agentpage.css">
+
+</head>
+<script>
+    async function getAgents() {
+        try {
+            let response = await fetch('http://localhost:8081/agents');
+            let agents = await response.json();
+
+            if (agents.length > 0) {
+                const agent = agents[0];
+                document.getElementById("agentName").textContent = agent.display_name;
+                document.getElementById("displayIcon").src = agent.display_icon || "";
+                document.getElementById("role").textContent = agent.role;
+                document.getElementById("nationality").textContent = agent.nationality;
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+    getAgents();
+
+</script>
+
+
+<body>
+
+    <h2 id="agentName"></h2>
+    <img id="displayIcon">
+    <div id="role"></div>
+
+
+    <div id="nationality"></div>
+
+</body>
+
+</html>
