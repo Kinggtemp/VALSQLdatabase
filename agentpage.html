@@ -9,37 +9,73 @@
 
 </head>
 <script>
-    async function getAgents() {
-        try {
-            let response = await fetch('http://localhost:8081/agents');
-            let agents = await response.json();
+    // async function getAgents() {
+    //     try {
+    //         let response = await fetch('http://localhost:8081/agents');
+    //         let agents = await response.json();
 
-            if (agents.length > 0) {
-                const agent = agents[0];
-                document.getElementById("agentName").textContent = agent.display_name;
-                document.getElementById("displayIcon").src = agent.display_icon || "";
-                document.getElementById("role").textContent = agent.role;
-                document.getElementById("nationality").textContent = agent.nationality;
-            }
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
+    //         if (agents.length > 0) {
+    //             const agent = agents[0];
+    //             document.getElementById("agentName").textContent = agent.display_name;
+    //             document.getElementById("displayIcon").src = agent.display_icon || "";
+    //             document.getElementById("role").textContent = agent.role;
+    //             document.getElementById("nationality").textContent = agent.nationality;
+    //         }
+    //     }
+    //     catch (e) {
+    //         console.log(e);
+    //     }
+    // }
     getAgents();
+
+    async function getAgents() {
+    try {
+        let response = await fetch('http://localhost:8081/agents');
+        let agents = await response.json();
+        document.getElementById("agentName").innerHTML = "";
+        document.getElementById("displayIcon").src = "";
+        document.getElementById("role").innerHTML = "";
+        document.getElementById("nationality").innerHTML = "";
+
+        // Loop through the agents and populate the HTML elements
+        agents.forEach(agent => {
+            let agentNameElement = document.createElement("h2");
+            agentNameElement.textContent = agent.display_name;
+            document.getElementById("agentName").appendChild(agentNameElement);
+
+            let displayIconElement = document.createElement("img");
+            displayIconElement.id = "displayIcon";
+            displayIconElement.src = agent.display_icon || "";
+            document.body.appendChild(displayIconElement);
+
+            let roleElement = document.createElement("div");
+            roleElement.id = "role";
+            roleElement.textContent = agent.role;
+            document.body.appendChild(roleElement);
+
+            let nationalityElement = document.createElement("div");
+            nationalityElement.id = "nationality";
+            nationalityElement.textContent = agent.nationality;
+            document.body.appendChild(nationalityElement);
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
 
 </script>
 
 
 <body>
-
-    <h2 id="agentName"></h2>
-    <img id="displayIcon">
-    <div id="role"></div>
-
-
-    <div id="nationality"></div>
-
+    <div class="agent-container">
+        <h2 id="agentName"></h2>
+        <img id="displayIcon">
+        <div id="role"></div>
+        <div id="nationality"></div>
+    </div>
+    
 </body>
 
 </html>
