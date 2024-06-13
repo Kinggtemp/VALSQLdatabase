@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bg3 Character WIKI</title>
+    <link rel="stylesheet" href="bg3wiki.css">
+
+</head>
+<script>
+    getcharacters();
+
+    async function getcharacters() {
+    try {
+        let response = await fetch('http://localhost:8082/characters');
+        let characters = await response.json();
+        document.getElementById("displayName").innerHTML = "";
+        document.getElementById("displayIcon").src = "";
+        document.getElementById("age").innerHTML = "";
+        document.getElementById("class").innerHTML = "";
+        document.getElementById("race").innerHTML = "";
+        document.getElementById("background").innerHTML = "";
+        document.getElementById("hometown").innerHTML = "";
+
+        // Loop through the agents and populate the HTML elements
+        characters.forEach(character => {
+            let characterNameElement = document.createElement("h2");
+            characterNameElement.textContent = character.display_name;
+            document.getElementById("displayName").appendChild(characterNameElement);
+
+            let displayIconElement = document.createElement("img");
+            displayIconElement.id = "displayIcon";
+            displayIconElement.src = character.display_icon || "";
+            document.body.appendChild(displayIconElement);
+
+            let roleElement = document.createElement("div");
+            ageElement.id = "age";
+            ageElement.textContent = character.age;
+            document.body.appendChild(ageElement);
+
+            let classElement = document.createElement("div");
+            classElement.id = "class";
+            classElement.textContent = character.class;
+            document.body.appendChild(classElement);
+
+            let raceElement = document.createElement("div");
+            raceElement.id = "race";
+            raceElement.textContent = character.race;
+            document.body.appendChild(raceElement);
+
+            let backgroundElement = document.createElement("div");
+            backgroundElement.id = "background";
+            backgroundElement.textContent = character.background;
+            document.body.appendChild(backgroundElement);
+
+            let hometownElement = document.createElement("div");
+            hometownElement.id = "hometown";
+            hometownElement.textContent = character.hometown;
+            document.body.appendChild(hometownElement);
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+
+</script>
+
+
+<body>
+    <div class="character-container">
+        <h2 id="displayName"></h2>
+        <img id="displayIcon">
+        <div id="age"></div>
+        <div id="race"></div>
+        <div id="class"></div>
+        <div id="background"></div>
+        <div id="hometown"></div>
+    </div>
+    
+</body>
+
+</html>

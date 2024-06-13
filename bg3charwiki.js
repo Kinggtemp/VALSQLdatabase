@@ -10,12 +10,12 @@ app.use(bodyParser.json());
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Boltelmo21!",
+  password: "P3nzanc3!",
   database: "pubs"
 });
 
-app.get("/agents", function(req, res) {
-  connection.query("SELECT * FROM agents", function(
+app.get("/characters", function(req, res) {
+  connection.query("SELECT * FROM characters", function(
     error,
     results,
     fields
@@ -25,24 +25,24 @@ app.get("/agents", function(req, res) {
   });
 });
 
-app.get("/agents/:id", function(req, res) {
+app.get("/characters/:id", function(req, res) {
   console.log(req.params.id);
-  let sql = "SELECT * FROM agents WHERE id = '" + req.params.id + "'";
+  let sql = "SELECT * FROM characters WHERE id = '" + req.params.id + "'";
   connection.query(sql, function(error, results, fields) {
     console.log(error);
     res.json(results);
   });
 });
 
-app.delete("/agents/:id", function(req, res) {
-  let sql = "DELETE FROM agents WHERE id = '" + req.params.id + "'";
+app.delete("/characters/:id", function(req, res) {
+  let sql = "DELETE FROM characters WHERE id = '" + req.params.id + "'";
   connection.query(sql, function(error, results, fields) {
-    res.end("agent removed if it existed");
+    res.end("Character removed if it existed");
   });
 });
 
-app.post("/agents", function(req, res) {
-  let sql = "INSERT INTO agents (display_name,role,nationality)";
+app.post("/characters", function(req, res) {
+  let sql = "INSERT INTO characters (displayName,age,nationality)";
   sql =
     sql +
     " VALUES('" +
@@ -59,7 +59,7 @@ app.post("/agents", function(req, res) {
   });
 });
 
-var server = app.listen(8081, function() {
+var server = app.listen(8082, function() {
   console.log(server.address().address);
   console.log(server.address().port);
 });
