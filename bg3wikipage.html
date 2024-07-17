@@ -15,7 +15,7 @@
     try {
         let response = await fetch('http://localhost:8082/characters');
         let characters = await response.json();
-        document.getElementById("displayName").innerHTML = "";
+        // document.getElementById("displayName").innerHTML = "";
         document.getElementById("displayIcon").src = "";
         document.getElementById("age").innerHTML = "";
         document.getElementById("class").innerHTML = "";
@@ -25,13 +25,10 @@
 
         // Loop through the agents and populate the HTML elements
         characters.forEach(character => {
-            let characterNameElement = document.createElement("h2");
-            characterNameElement.textContent = character.display_name;
-            document.getElementById("displayName").appendChild(characterNameElement);
 
             let displayIconElement = document.createElement("img");
             displayIconElement.id = "displayIcon";
-            displayIconElement.src = character.display_icon || "";
+            displayIconElement.src = character.displayIcon;
             document.body.appendChild(displayIconElement);
 
             let ageElement = document.createElement("div");
@@ -71,7 +68,6 @@
 
 <body>
     <div class="character-container">
-        <h2 id="displayName"></h2>
         <img id="displayIcon">
         <div id="age"></div>
         <div id="race"></div>
